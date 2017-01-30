@@ -13,7 +13,7 @@ export default class MemorialTable extends React.Component {
       : 'STANDARD';
 
     return (
-      <Table hover>
+      <Table striped bordered hover>
         <thead>
           <tr>
             <th>Name</th>
