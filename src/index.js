@@ -1,13 +1,14 @@
+import 'promise-polyfill';
+import 'whatwg-fetch';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import configureStore from './configureStore';
+import { Provider } from 'react-redux';
 import './index.css';
 
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import reducer from './reducers';
-
-const store = createStore(reducer);
+const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>

@@ -16,9 +16,30 @@ export function sortByCreationDate() {
   };
 }
 
-export function updateMemorials(memorials) {
+function requestMemorials() {
   return {
-    type: 'UPDATE_MEMORIALS',
-    data: memorials
+    type: 'REQUEST_MEMORIALS'
+  };
+}
+
+function receiveMemorials(json) {
+  return {
+    type: 'RECEIVE_MEMORIALS',
+    memorials: json.data.map(memorial => Object.assign({
+      name: {
+        first: '',
+        last: '',
+        middle: ''
+      }
+    }, memorial))
+  }
+}
+
+export function fetchMemorials() {
+  return dispatch => {
+    dispatch(requestMemorials());
+    return fetch('https://dev.requiemapp.com/public/memorial/random')
+      .then(response => response.json())
+      .then(json => dispatch(receiveMemorials(json)))
   }
 }

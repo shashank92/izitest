@@ -4,7 +4,7 @@ import {
   sortByFirstName,
   sortByLastName,
   sortByCreationDate,
-  updateMemorials
+  fetchMemorials
 } from './actions';
 
 export const SortButtons = connect(
@@ -29,7 +29,7 @@ export const MemorialTable = connect(
   },
   function mapDispatchToProps(dispatch) {
     return {
-      updateMemorials: (memorials) => dispatch(updateMemorials(memorials))
+      fetchMemorials: () => dispatch(fetchMemorials())
     };
   }
 )(components.MemorialTable);

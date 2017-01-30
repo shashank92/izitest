@@ -65,7 +65,7 @@ This module defines action creators for each action:
 3. SORT\_BY\_CREATION\_DATE
 4. UPDATE\_MEMORIALS
 
-The sorting actions are pretty straightforward. The `UPDATE_MEMORIALS` action is triggered whenever the app gets a response from the endpoint. Currently, only one request is made to the endpoint after the `MemorialTable` component is mounted. It's not possible to trigger this action after the initial mount.
+The sorting actions are straightforward. The `UPDATE_MEMORIALS` action is triggered whenever the app gets a response from the endpoint. Currently, only one request is made to the endpoint after the `MemorialTable` component is mounted. It's not possible to trigger this action after the initial mount.
 
 ### reducers.js
 

@@ -2,7 +2,8 @@ import { compareFunctions } from './helpers';
 
 const initialState = {
   memorials: [],
-  sortOrder: 'CREATION_DATE'
+  sortOrder: 'CREATION_DATE',
+  isFetching: true
 };
 
 export default function(state = initialState, action) {
@@ -25,9 +26,14 @@ export default function(state = initialState, action) {
           .sort(compareFunctions.CREATION_DATE),
         sortOrder: 'CREATION_DATE'
       });
-    case 'UPDATE_MEMORIALS':
+    case 'REQUEST_MEMORIALS':
       return Object.assign({}, state, {
-        memorials: action.data.concat()
+        isFetching: true
+      });
+    case 'RECEIVE_MEMORIALS':
+      return Object.assign({}, state, {
+        isFetching: false,
+        memorials: action.memorials.concat()
           .sort(compareFunctions[state.sortOrder])
       });
     default:
