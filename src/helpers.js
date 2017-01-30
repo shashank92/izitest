@@ -1,20 +1,3 @@
-export function fetchMemorialData(boundActionCreator) {
-  fetch('https://dev.requiemapp.com/public/memorial/random')
-    .then(response => response.json())
-    .then(json => json.data.map(memorial => Object.assign(memorial, {
-      name: memorial.name || {
-        first: '',
-        last: '',
-        middle: ''
-      }
-    })))
-    .then(data => {
-      boundActionCreator(data);
-    }).catch(ex => {
-      console.log('parsing failed', ex);
-    })
-}
-
 export const compareFunctions = {
   FIRST_NAME(a, b) {
     let aNameFirst = a.name.first || '';
@@ -31,19 +14,16 @@ export const compareFunctions = {
   }
 };
 
-export function formatName(name = {
-  first: '',
-  middle: '',
-  last: ''
-}, formatType = 'STANDARD') {
+export function formatName(name, sortOrder) {
   let first = name.first || '';
   let middle = name.middle || '';
   let last = name.last || '';
 
-  switch (formatType) {
-    case 'LAST_NAME_FIRST':
+  switch (sortOrder) {
+    case 'LAST_NAME':
       return `${last}, ${first} ${middle}`;
-    case 'STANDARD':
+    case 'FIRST_NAME':
+    case 'CREATION_DATE':
     default:
       return `${first} ${middle} ${last}`;
   }
