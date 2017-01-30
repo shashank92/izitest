@@ -12,6 +12,13 @@ If you have any questions, please feel free to contact us!
 4.      Create a button on the page that when pressed will switch the sorting on the list to last name of the decedent (name.last)
 5.      Create a github repo and send us a link. Provide documentation in the readme file
 
+## Dependencies
+
+* [React + ReactDOM](https://facebook.github.io/react/)
+* [React-Bootstrap](https://react-bootstrap.github.io/)
+* [Redux + ReactRedux](http://redux.js.org/)
+* [Fetch](https://github.com/github/fetch)
+
 ## Installation
     [npm|yarn] install
     [npm|yarn] start
@@ -20,14 +27,12 @@ If you have any questions, please feel free to contact us!
 
 ### actions.js
 
-* Defines 4 action types as uppercase string literals.
+* Defines action creators for 4 types of actions.
 
- 1. SORT\_BY\_FIRST\_NAME
- 2. SORT\_BY\_LAST\_NAME
- 3. SORT\_BY\_CREATION\_DATE
- 4. UPDATE\_MEMORIALS
-
-* Defines corresponding action creators.
+  1. SORT\_BY\_FIRST\_NAME
+  2. SORT\_BY\_LAST\_NAME
+  3. SORT\_BY\_CREATION\_DATE
+  4. UPDATE\_MEMORIALS
 
 ## Thanks
 Thanks to [IZI Mobile](http://izimobile.com/) for the project and usage of the endpoint.
