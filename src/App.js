@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { MemorialTable, SortButtons, RefreshButton } from './containers';
-import styles from './App.css';
+import './App.css';
 
 class App extends Component {
   render() {
-    console.log(styles);
     return (
       <div className="container">
         <div className="row">

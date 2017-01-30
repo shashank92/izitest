@@ -6,13 +6,13 @@ export const sortOrders = {
 
 export const compareFunctions = {
   FIRST_NAME(a, b) {
-    const aNameFirst = a.name.first || '';
-    const bNameFirst = b.name.first || '';
+    let aNameFirst = a.name.first || '';
+    let bNameFirst = b.name.first || '';
     return aNameFirst.localeCompare(bNameFirst);
   },
   LAST_NAME(a, b) {
-    const aNameLast = a.name.last || '';
-    const bNameLast = b.name.last || '';
+    let aNameLast = a.name.last || '';
+    let bNameLast = b.name.last || '';
     return aNameLast.localeCompare(bNameLast);
   },
   CREATION_DATE(a, b) {
@@ -27,15 +27,19 @@ export const formatTypes = {
 
 export function formatName(name = {
   first: '',
+  middle: '',
   last: ''
 }, formatType = 'STANDARD') {
-  const { first = '', last = '' } = name;
+  let first = name.first || '';
+  let middle = name.middle || '';
+  let last = name.last || '';
+  
   switch (formatType) {
     case formatTypes.LAST_NAME_FIRST:
-      return `${last}, ${first}`;
+      return `${last}, ${first} ${middle}`;
     case formatTypes.STANDARD:
     default:
-      return `${first} ${last}`;
+      return `${first} ${middle} ${last}`;
   }
 }
 

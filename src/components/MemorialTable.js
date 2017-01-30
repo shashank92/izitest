@@ -1,5 +1,10 @@
 import React from 'react';
-import { formatTypes, formatName, fetchMemorialData } from '../helpers';
+import {
+  sortOrders,
+  formatTypes,
+  formatName,
+  fetchMemorialData
+} from '../helpers';
 import { Table } from 'react-bootstrap';
 
 export default class MemorialTable extends React.Component {
@@ -8,6 +13,10 @@ export default class MemorialTable extends React.Component {
   }
 
   render() {
+    let formatType = this.props.sortOrder == sortOrders.LAST_NAME
+      ? formatTypes.LAST_NAME_FIRST
+      : formatTypes.STANDARD;
+
     return (
       <Table hover>
         <thead>
@@ -20,7 +29,7 @@ export default class MemorialTable extends React.Component {
           {this.props.memorials.map((memorial, index) => (
             <tr key={index}>
               <td>
-                { formatName(memorial.name, formatTypes.STANDARD) }
+                { formatName(memorial.name, formatType) }
               </td>
               <td>
                 { new Date(memorial.creationDate).toLocaleString() }
