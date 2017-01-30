@@ -13,7 +13,7 @@ export default class MemorialTable extends React.Component {
   }
 
   render() {
-    let formatType = this.props.sortOrder == sortOrders.LAST_NAME
+    let formatType = this.props.sortOrder === sortOrders.LAST_NAME
       ? formatTypes.LAST_NAME_FIRST
       : formatTypes.STANDARD;
 

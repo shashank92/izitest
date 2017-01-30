@@ -4,11 +4,9 @@ import { Button, ButtonGroup } from 'react-bootstrap';
 export default class SortButtons extends React.Component {
   render() {
     return (
-      <div style={{
-        paddingBottom: '20px'
-      }}>
-        Sort by&nbsp;
-        <ButtonGroup>
+      <div className="SortButtons">
+        <span>Sort by</span>
+        <ButtonGroup className="SortButtons-group">
           <Button
             onClick={this.props.sortByFirstName}
             active={this.props.sortOrder === 'FIRST_NAME'}>

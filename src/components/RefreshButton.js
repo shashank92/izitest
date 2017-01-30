@@ -14,9 +14,7 @@ export default class RefreshButton extends React.Component {
 
   render() {
     return (
-      <div style={{
-        paddingTop: '5px'
-      }}>
+      <div className="RefreshButton">
         <Button onClick={this.refreshMemorialData}>Refresh memorial data</Button>
       </div>
     )
