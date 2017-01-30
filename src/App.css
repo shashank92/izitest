@@ -13,3 +13,7 @@
 .SortButtons-group {
   margin: 0px 10px;
 }
+
+.MemorialTable {
+  overflow-x: scroll;
+}
