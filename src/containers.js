@@ -1,45 +1,46 @@
-import { connect } from 'react-redux'
-import * as components from './components'
-import * as actions from './actions'
+import { connect } from 'react-redux';
+import * as components from './components';
+import {
+  sortByFirstName,
+  sortByLastName,
+  sortByCreationDate,
+  updateMemorials
+} from './actions';
 
 export const SortButtons = connect(
   function mapStateToProps(state) {
-    return { memorials: state }
+    return { sortOrder: state.sortOrder };
   },
   function mapDispatchToProps(dispatch) {
     return {
-      sortByFirstName: () => dispatch(actions.sortByFirstName),
-      sortByLastName: () => dispatch(actions.sortByLastName),
-      sortByCreationDate: () => dispatch(actions.sortByCreationDate),
-      updateMemorials: (memorials) => dispatch(actions.updateMemorials(memorials))
-    }
+      sortByFirstName: () => dispatch(sortByFirstName()),
+      sortByLastName: () => dispatch(sortByLastName()),
+      sortByCreationDate: () => dispatch(sortByCreationDate())
+    };
   }
 )(components.SortButtons)
 
 export const MemorialTable = connect(
   function mapStateToProps(state) {
-    return { memorials: state }
+    return {
+      memorials: state.memorials,
+      sortOrder: state.sortOrder
+    };
   },
   function mapDispatchToProps(dispatch) {
     return {
-      sortByFirstName: () => dispatch(actions.sortByFirstName),
-      sortByLastName: () => dispatch(actions.sortByLastName),
-      sortByCreationDate: () => dispatch(actions.sortByCreationDate),
-      updateMemorials: (memorials) => dispatch(actions.updateMemorials(memorials))
-    }
+      updateMemorials: (memorials) => dispatch(updateMemorials(memorials))
+    };
   }
 )(components.MemorialTable)
 
 export const RefreshButton = connect(
   function mapStateToProps(state) {
-    return { memorials: state }
+    return {};
   },
   function mapDispatchToProps(dispatch) {
     return {
-      sortByFirstName: () => dispatch(actions.sortByFirstName),
-      sortByLastName: () => dispatch(actions.sortByLastName),
-      sortByCreationDate: () => dispatch(actions.sortByCreationDate),
-      updateMemorials: (memorials) => dispatch(actions.updateMemorials(memorials))
-    }
+      updateMemorials: (memorials) => dispatch(updateMemorials(memorials))
+    };
   }
 )(components.RefreshButton)

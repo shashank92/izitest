@@ -1,3 +1,9 @@
 .App-intro {
   font-size: large;
 }
+
+.App-column {
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #FAFAFA;
+}
