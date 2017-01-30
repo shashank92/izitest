@@ -1,7 +1,3 @@
-/*
- * action creators
- */
-
 export function sortByFirstName() {
   return {
     type: 'SORT_BY_FIRST_NAME'

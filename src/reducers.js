@@ -5,10 +5,6 @@ const initialState = {
   sortOrder: sortOrders.CREATION_DATE
 };
 
-/*
- * Array.prototype.sort() sorts in-place, but state is read-only by principle
- * To circumvent this, the memorials array is copied first using .concat()
- */
 export default function(state = initialState, action) {
   switch(action.type) {
     case 'SORT_BY_FIRST_NAME':
