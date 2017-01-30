@@ -3,10 +3,6 @@ import { formatName } from '../helpers';
 import { Table } from 'react-bootstrap';
 
 export default class MemorialTable extends React.Component {
-  componentDidMount() {
-    this.props.fetchMemorials();
-  }
-
   render() {
     return (
       <Table striped bordered hover>
