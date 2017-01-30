@@ -66,7 +66,7 @@ NOTE: There's some normalization done here with the name objects that come from 
       memorials: []
     };
 
-`waitingForMemorials` is used to determine whether or not to display the "Fetching memorial data" message. Keeping track of the sort order is useful for determining how the names are displayed. The `memorials` key just holds the memorial data.
+`waitingForMemorials` is used to determine whether or not to display the "Fetching memorial data" message. It is set to false after the data is received from the endpoint. Keeping track of the sort order is useful for determining which of the sort buttons should be rendered as active as well as how the names are displayed. The `memorials` array just holds the memorial data objects.
 
 #### Sorting
 
