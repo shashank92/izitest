@@ -8,13 +8,6 @@
 4.      Create a button on the page that when pressed will switch the sorting on the list to last name of the decedent (name.last)
 5.      Create a github repo and send us a link. Provide documentation in the readme file
 
-## Dependencies
-
-* [React + ReactDOM](https://facebook.github.io/react/)
-* [React-Bootstrap](https://react-bootstrap.github.io/)
-* [Redux + ReactRedux](http://redux.js.org/)
-* [Fetch](https://github.com/github/fetch)
-
 ## Installation
 
 To quickly start up the application on a development server:
@@ -30,11 +23,21 @@ This is the default behavior for apps created with Create React App.
 
 ### index.js
 
-This is the entry point to the application where `ReactDOM.render()` gets called. The store gets created from the reducer and a `<Provider>` wraps the main `<App>` component so that it can give container components access to the store using the [context API](https://facebook.github.io/react/docs/context.html).
+This is the entry point to the application where `ReactDOM.render()` gets called. The `<Provider>` is passed a `store` and wraps the main `<App>` component so that it can give container components access to the store using the [context API](https://facebook.github.io/react/docs/context.html).
+
+### configureStore.js
+
+`configureStore()` is a common pattern for creating a store with middleware. In this case, `thunk` was added to allow for [async actions](http://redux.js.org/docs/advanced/AsyncActions.html).
 
 ### App.js
 
-This is the main top level presentational component for the application. It sets up a simple grid container and uses column offsets to create a centered block for the app content. This is where the Redux container components for `<SortButtons>` and `<MemorialTable>` get rendered.
+This is the main top level presentational component for the application. It sets up a simple grid container and uses column offsets to create a centered block for the app content. The main app content consists of an `<AsyncWrapper>` around `<SortButtons>` and `<MemorialTable>`.
+
+### components/AsyncWrapper.js
+
+This is just a special wrapper component that displays 'Fetching memorial data...' as long as `props.waitingForMemorials`. If the value is false, it just renders its children instead.
+
+After the component mounts, it makes a request to the endpoint using [Fetch](https://github.com/github/fetch), and triggers an action in the success handler. According to the docs, [`componentDidMount`](https://facebook.github.io/react/docs/react-component.html#componentdidmount) is a good place to instantiate network requests that fetch data from an endpoint.
 
 ### components/SortButtons.js
 
@@ -42,36 +45,28 @@ This is a presentational component that contains the sorting buttons which are o
 
 ### components/MemorialTable.js
 
-This is the main presentational component which displays the name and creation date of each of the 10 memorials pulled down from the endpoint. After the component mounts, it makes a request to the endpoint using [Fetch](https://github.com/github/fetch), and triggers an action in the success handler. According to the docs, [`componentDidMount`](https://facebook.github.io/react/docs/react-component.html#componentdidmount) is a nice place to instantiate network requests that fetch data from an endpoint.
-
-NOTE: There's some normalization done here with the name objects that come from the endpoint. Sometimes the name key that comes down from the endpoint is `undefined`. In these cases, the name object is replaced with `{first: '', middle: '', last: ''}`.
-
-### components/index.js
-
-This is just a convenient export of all lower level presentational components so they can be easily imported into `containers.js` using `import * as components from './components'`.
-
-### containers.js
-
-This module exports container components that wrap the `<SortButtons>` and `<MemorialTable>` presentational components. There's no need to change the name for the exports since they only get imported in `App.js` anyways.
-
-The container components are created easily with the help of [connect()](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options). All that needs to be specified is how the state and dispatch functions get passed down as props to the lower level presentational components.
+This is the main presentational component which displays the name and creation date of each of the 10 memorials pulled down from the endpoint. The sorting happens at the state level, so sorting is unnecessary at this point.
 
 ### actions.js
 
-This module defines action creators for each action:
+This module defines action creators for each action. The sorting actions are straightforward.
 
-1. SORT\_BY\_FIRST\_NAME
-2. SORT\_BY\_LAST\_NAME
-3. SORT\_BY\_CREATION\_DATE
-4. UPDATE\_MEMORIALS
+`fetchMemorials` becomes a thunk action creator thanks to the `redux-thunk` middleware. The middleware allows an action creator to return a function which accepts the `dispatch()` function. Having access to `dispatch()` in the function body enables the action creator to call other actions within the function body, which makes writing the async `fetch` code pretty simple. The thunk action creator just dispatches the simpler synchronous actions `requestMemorials()` and `receiveMemorials()` at the appropriate times (before and after the fetch request is in flight respectively).
 
-The sorting actions are straightforward. The `UPDATE_MEMORIALS` action is triggered whenever the app gets a response from the endpoint. Currently, only one request is made to the endpoint after the `MemorialTable` component is mounted. It's not possible to trigger this action after the initial mount.
+NOTE: There's some normalization done here with the name objects that come from the endpoint. Sometimes the name key that comes down from the endpoint is `undefined`. In these cases, the name object is replaced with `{first: '', middle: '', last: ''}`.
 
 ### reducers.js
 
 #### State Structure
 
-The initial state comprises an empty memorials array and an initial sort order of `CREATION_DATE`. Keeping track of the sort order is useful for determining how the names are displayed.
+
+    const initialState = {
+      waitingForMemorials: true,
+      sortOrder: 'CREATION_DATE',
+      memorials: []
+    };
+
+`waitingForMemorials` is used to determine whether or not to display the "Fetching memorial data" message. Keeping track of the sort order is useful for determining how the names are displayed. The `memorials` key just holds the memorial data.
 
 #### Sorting
 
@@ -88,6 +83,16 @@ This module contains helpful utility functions used by other modules.
 * `formatName()` is used by `<MemorialTable>` to decide how the name objects should be converted to strings for rendering. Usually the names follow a `${first} ${middle} ${last}` format, but if `state.sortOrder` is `LAST_NAME`, then the names will be formatted according to `${last}, ${first} ${middle}`.
 
 NOTE: There's some normalization done here with the name objects. There are several data entries with first, middle, or last names that are either missing or null. In all these cases, an empty string is used as a placeholder.
+
+### containers
+
+This module exports container components that wrap the presentational components. There's no need to change the name for the exports since they only get imported in `App.js` anyways.
+
+The container components are created easily with the help of [connect()](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options). All that needs to be specified is how the state and dispatch functions get passed down as props to the lower level presentational components.
+
+## Additional Notes
+
+Not all of the memorial data returned from the endpoint has valid names for this project. Two memorial data objects are missing names. Three of the remaining data entries have missing last names. In all of these edge cases, the missing names have been replaced with the empty string.
 
 ## Thanks
 Thanks to [IZI Mobile](http://izimobile.com/) for the project and usage of the endpoint.
