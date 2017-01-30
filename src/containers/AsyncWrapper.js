@@ -5,7 +5,7 @@ import { fetchMemorials } from '../actions';
 export default connect(
   function mapStateToProps(state) {
     return {
-      isFetching: state.isFetching
+      waitingForMemorials: state.waitingForMemorials
     };
   },
   function mapDispatchToProps(dispatch) {
