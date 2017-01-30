@@ -19,12 +19,8 @@ export function formatName(name, sortOrder) {
   let middle = name.middle || '';
   let last = name.last || '';
 
-  switch (sortOrder) {
-    case 'LAST_NAME':
-      return `${last}, ${first} ${middle}`;
-    case 'FIRST_NAME':
-    case 'CREATION_DATE':
-    default:
-      return `${first} ${middle} ${last}`;
-  }
+  if (sortOrder === 'LAST_NAME')
+    return `${last}, ${first} ${middle}`;
+
+  return `${first} ${middle} ${last}`;
 }

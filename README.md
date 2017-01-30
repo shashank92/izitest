@@ -35,7 +35,7 @@ This is the main top level presentational component for the application. It sets
 
 ### components/AsyncWrapper.js
 
-This is just a special wrapper component that displays 'Fetching memorial data...' as long as `props.waitingForMemorials`. If the value is false, it just renders its children instead.
+This is just a special wrapper component that displays "Fetching memorial data..." as long as `props.waitingForMemorials`. If the value is false, it just renders its children instead.
 
 After the component mounts, it makes a request to the endpoint using [Fetch](https://github.com/github/fetch), and triggers an action in the success handler. According to the docs, [`componentDidMount`](https://facebook.github.io/react/docs/react-component.html#componentdidmount) is a good place to instantiate network requests that fetch data from an endpoint.
 
@@ -78,7 +78,7 @@ Since `Array.prototype.sort()` sorts the array in-place, a copy of the original 
 
 This module contains helpful utility functions used by other modules.
 
-* `compareFunctions()` is a set of compare functions used by `Array.prototype.sort()` in `reducers.js` to sort the memorial data.
+* `compareFunctions` are used by `Array.prototype.sort()` in `reducers.js` to sort the memorial data.
 
 * `formatName()` is used by `<MemorialTable>` to decide how the name objects should be converted to strings for rendering. Usually the names follow a `${first} ${middle} ${last}` format, but if `state.sortOrder` is `LAST_NAME`, then the names will be formatted according to `${last}, ${first} ${middle}`.
 
@@ -86,9 +86,7 @@ NOTE: There's some normalization done here with the name objects. There are seve
 
 ### containers
 
-This module exports container components that wrap the presentational components. There's no need to change the name for the exports since they only get imported in `App.js` anyways.
-
-The container components are created easily with the help of [connect()](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options). All that needs to be specified is how the state and dispatch functions get passed down as props to the lower level presentational components.
+This module exports container components that wrap the presentational components. The container components are created easily with the help of [connect()](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options). All that needs to be specified is how the state and dispatch functions get passed down as props to the lower level presentational components.
 
 ## Additional Notes
 
