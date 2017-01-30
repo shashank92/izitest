@@ -1,8 +1,8 @@
-import { sortOrders, compareFunctions } from './helpers';
+import { compareFunctions } from './helpers';
 
 const initialState = {
   memorials: [],
-  sortOrder: sortOrders.CREATION_DATE
+  sortOrder: 'CREATION_DATE'
 };
 
 export default function(state = initialState, action) {
@@ -10,20 +10,20 @@ export default function(state = initialState, action) {
     case 'SORT_BY_FIRST_NAME':
       return Object.assign({}, state, {
         memorials: state.memorials.concat()
-          .sort(compareFunctions[sortOrders.FIRST_NAME]),
-        sortOrder: sortOrders.FIRST_NAME
+          .sort(compareFunctions.FIRST_NAME),
+        sortOrder: 'FIRST_NAME'
       });
     case 'SORT_BY_LAST_NAME':
       return Object.assign({}, state, {
         memorials: state.memorials.concat()
-          .sort(compareFunctions[sortOrders.LAST_NAME]),
-        sortOrder: sortOrders.LAST_NAME
+          .sort(compareFunctions.LAST_NAME),
+        sortOrder: 'LAST_NAME'
       });
     case 'SORT_BY_CREATION_DATE':
       return Object.assign({}, state, {
         memorials: state.memorials.concat()
-          .sort(compareFunctions[sortOrders.CREATION_DATE]),
-        sortOrder: sortOrders.CREATION_DATE
+          .sort(compareFunctions.CREATION_DATE),
+        sortOrder: 'CREATION_DATE'
       });
     case 'UPDATE_MEMORIALS':
       return Object.assign({}, state, {

@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  sortOrders,
-  formatTypes,
-  formatName,
-  fetchMemorialData
-} from '../helpers';
+import { fetchMemorialData, formatName } from '../helpers';
 import { Table } from 'react-bootstrap';
 
 export default class MemorialTable extends React.Component {
@@ -13,9 +8,9 @@ export default class MemorialTable extends React.Component {
   }
 
   render() {
-    let formatType = this.props.sortOrder === sortOrders.LAST_NAME
-      ? formatTypes.LAST_NAME_FIRST
-      : formatTypes.STANDARD;
+    let formatType = this.props.sortOrder === 'LAST_NAME'
+      ? 'LAST_NAME_FIRST'
+      : 'STANDARD';
 
     return (
       <Table hover>
