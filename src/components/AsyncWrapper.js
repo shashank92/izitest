@@ -8,7 +8,7 @@ export default class AsyncWrapper extends React.Component {
   render() {
     return (
       <div>
-        {this.props.isFetching ?
+        {this.props.waitingForMemorials ?
           'Fetching memorial data...' :
           this.props.children
         }
