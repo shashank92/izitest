@@ -34,7 +34,7 @@ This module defines action creators for each action:
 
 #### State Structure
 
-The initial state comprises an empty memorials array and an initial sort order of `CREATION_DATE`. Each time the memorials are sorted, the sort order also gets updated so that the app can be aware of which button should be `active` and also maintain the current sorting order if the user refreshes the table. The sort order also determines how the names are displayed.
+The initial state comprises an empty memorials array and an initial sort order of `CREATION_DATE`. Keeping track of the sort order is useful for determines how the names are displayed.
 
 #### Sorting
 
@@ -44,7 +44,7 @@ Since `Array.prototype.sort()` sorts the array in-place, a copy of the original 
 
 #### Update Memorials
 
-The `UPDATE_MEMORIALS` action is triggered whenever the app gets a response from the endpoint. This can happen after the request that's fired when the memorial table component mounts, and also after the "Refresh memorial data" button is clicked.
+The `UPDATE_MEMORIALS` action is triggered whenever the app gets a response from the endpoint. Currently, only one request is made to the endpoint after the `MemorialTable` component is mounted.
 
 ## Thanks
 Thanks to [IZI Mobile](http://izimobile.com/) for the project and usage of the endpoint.

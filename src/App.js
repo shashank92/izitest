@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MemorialTable, SortButtons, RefreshButton } from './containers';
+import { MemorialTable, SortButtons } from './containers';
 import './App.css';
 
 class App extends Component {
@@ -12,7 +12,6 @@ class App extends Component {
             <h5>React + Redux project for IZI Mobile</h5>
             <SortButtons />
             <MemorialTable />
-            <RefreshButton />
           </div>
         </div>
       </div>

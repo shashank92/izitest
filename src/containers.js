@@ -18,7 +18,7 @@ export const SortButtons = connect(
       sortByCreationDate: () => dispatch(sortByCreationDate())
     };
   }
-)(components.SortButtons)
+)(components.SortButtons);
 
 export const MemorialTable = connect(
   function mapStateToProps(state) {
@@ -32,15 +32,4 @@ export const MemorialTable = connect(
       updateMemorials: (memorials) => dispatch(updateMemorials(memorials))
     };
   }
-)(components.MemorialTable)
-
-export const RefreshButton = connect(
-  function mapStateToProps(state) {
-    return {};
-  },
-  function mapDispatchToProps(dispatch) {
-    return {
-      updateMemorials: (memorials) => dispatch(updateMemorials(memorials))
-    };
-  }
-)(components.RefreshButton)
+)(components.MemorialTable);
